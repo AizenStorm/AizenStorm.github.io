@@ -1,7 +1,14 @@
 <!Doctype HTML>
 <html>
 <body>
-<p> Hello World</p>
+<p id="demo"> Hello World</p>
+<button onclick="foo()">Check JS</script>
+<script>
+function foo()
+{
+	document.getElementById("demo").innerHTML="JS working";
+}
+</script>
 </body>
 
 </html>
