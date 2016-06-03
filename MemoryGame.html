@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+	font-family:"Comic Sans MS";
+}
+div#parent{
+	position:absolute;
+	left:0;
+	top:0;
+	bottom:0;
+	right:0;
+	width:100%
+	height:100%;
+	margin:0px;
+	border:0px;
+}
+div#board{
+	position:relative;
+	left:200px;
+	top:30px;
+	border:1px solid black;
+}
+div#board > div{
+	background-color: white;
+	border:2px solid black;
+	width:50px;
+	height:50px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:40px;
+	cursor:pointer;
+	text-align:center;
+	border-radius:50%;
+}
+div#board > div:hover{
+	border:2px solid blue;
+}
+.parameters{
+	position:relative;
+	bottom:300px;
+	font-size:20px;
+}
+</style>
+<script>
+var alpha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+var shuffled_array = [];
+var tile_values = [];
+var tile_ids = [];
+var side;
+var area;
+var board_width;
+var flipped_tiles = 0;
+var step=0;
+var seconds=0;
+var time_interval;
+var score=0;
+Array.prototype.randomiser = function(){
+    var i = this.length - 1;
+	var j, temp;
+    while(i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+		i--;
+    }
+}
+function boardGenerator()
+{
+	var tiles = '';
+	var i;
+	var game_board=document.getElementById("board");
+	flipped_tiles = 0;
+	shuffled_array.randomiser();
+	enterSideLength();
+	game_board.style.width= ((side*20) + (side*95)) + "px";
+	game_board.style.height=game_board.style.width;
+	document.getElementById("steps").style.left= 210 + ((side*20) + (side*95)) + "px";
+	document.getElementById("timer").style.left= 210 + ((side*20) + (side*95)) + "px";
+	document.getElementById("score").style.left= 210 + ((side*20) + (side*95)) + "px";
+	for(i = 0; i < shuffled_array.length; i++)
+	{
+		tiles += '<div id="tile_'+i+'" onclick="tileFlipper(this,\''+shuffled_array[i]+'\')"></div>';
+	}
+	document.getElementById('board').innerHTML = tiles;
+	time_interval=setInterval(timer,1000);
+}
+function tileFlipper(tile,val)
+{
+	step++;
+	if(tile.innerHTML == "" && tile_values.length < 2)
+	{
+		tile.style.background = 'lightgreen';
+		tile.innerHTML = val;
+		if(tile_values.length == 0)
+		{
+			tile_values.push(val);
+			tile_ids.push(tile.id);
+		} 
+		else if(tile_values.length == 1)
+		{
+			tile_values.push(val);
+			tile_ids.push(tile.id);
+			if(tile_values[0] == tile_values[1])
+			{
+				flipped_tiles += 2;
+				tile_values = [];
+            	tile_ids = [];
+				score++;
+				document.getElementById("score").innerHTML="Score: " + score;
+				if(flipped_tiles == shuffled_array.length)
+				{
+					alert("You Win \n Game Completed in "+step+" steps and "+seconds+" seconds \n Score: " + score);
+					step=0;
+					seconds=0;
+					clearInterval(time_interval);
+					document.getElementById('board').innerHTML = "";
+					alert("Generating New Board...");
+					boardGenerator();
+				}
+			} 
+			else 
+			{
+				function noMatch()
+				{
+				    var tile1 = document.getElementById(tile_ids[0]);
+				    var tile2 = document.getElementById(tile_ids[1]);
+				    tile1.style.background = 'white' ;
+            	    tile1.innerHTML = "";
+				    tile2.style.background = 'white';
+            	    tile2.innerHTML = "";
+				    tile_values = [];
+            	    tile_ids = [];
+				}
+				setTimeout(noMatch, 700);
+			}
+		}
+	}
+	document.getElementById("steps").innerHTML= 'Steps:' + step;
+}
+
+function enterSideLength()
+{
+	side=prompt("Enter side length",0);
+	if((side%2)!=0 || side>8 || side<4)
+	{
+		alert("Enter an even number less than 10 and greater than 2");
+		enterSideLength();
+	}
+	else
+	{
+		var a;
+		area=side*side;
+		for(a=0;a<(area/2);a++)
+		{
+			shuffled_array[a]=alpha[Math.floor(Math.random() * 26)];
+			shuffled_array[a+(area/2)]=shuffled_array[a];
+		}
+	}	
+}
+function timer()
+{
+	seconds++;
+	document.getElementById("timer").innerHTML=seconds + " seconds";
+}
+</script>
+</head>
+<body>
+<div id="parent">
+<div id="board"></div>
+<p id="steps" class="parameters"></p>
+<p id="timer" class="parameters"></p> 
+<p id="score" class="parameters"></p>
+</div>
+<script>
+boardGenerator();
+document.getElementById("steps").innerHTML="Steps: "
+document.getElementById("timer").innerHTML="0 seconds"
+document.getElementById("score").innerHTML="Score: "
+</script>
+</body>
+</html>
