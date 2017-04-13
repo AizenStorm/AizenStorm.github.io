@@ -1,0 +1,25 @@
+<md-content class="md-padding" ng-controller="projects_controller">
+    <md-divider />
+    <md-content ng-repeat="i in rep">
+      <div class="md-padding" layout="row" layout-wrap>
+        <md-card flex="33" md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Team Member {{i}}</span>
+              </md-card-title-text>
+            </md-card-title>   
+            <md-card-content>
+              <p> Business Analysis</p>
+            </md-card-content>   
+            <div>
+              <img ng-src="src/download.png" class="ng-card-image">
+            </div>  
+            <md-card-actions layout="row" layout-align="center center">
+              <md-button class="md-icon-button" ng-click="liker()" aria-label="Like">
+                <md-icon md-svg-icon="src/eye.svg"></md-icon>
+              </md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+  </md-content>
+</md-content>

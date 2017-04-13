@@ -1,0 +1,39 @@
+<md-content class="md-padding" ng-controller="members_ds_controller">
+    <md-content class="row-layout">
+      <div ng-repeat="i in memba">
+        <div class="md-padding" layout="row" layout-around="space between" layout-wrap>
+          <md-card flex="100" md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">{{i.name}}</span>
+                </md-card-title-text>
+              </md-card-title>   
+              <md-card-content>
+                <p> {{i.profile}}</p>
+              </md-card-content>   
+              <md-card-content>
+                <p> {{i.year}}<sup>{{i.yrex}}</sup> year</p>
+            </md-card-content>
+              <div>
+                <img ng-src="src/download.png" class="ng-card-image">
+              </div>  
+              <md-card-actions layout="row" layout-align="center center">
+                <md-button class="md-icon-button" ng-click="liker()" aria-label="Like">
+                  <md-icon md-svg-icon="src/eye.svg"></md-icon>
+                </md-button>
+              </md-card-actions>
+            </md-card>
+        </div>
+      </div>
+  </md-content>
+</md-content>
+
+<style>
+  .row-layout{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
