@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title> DataByte </title>
+<link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.min.css"></link>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-messages/angular-messages.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-material/angular-material.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+<script type="text/javascript" src="index.js">
+</script>
+<style>
+    body {
+        margin: 0;
+        background-color: #eeeeee
+    }
+
+    md-nav-bar {
+        width: 100%;
+        background-color: #000;
+        top: 0;
+    }
+
+    md-nav-item {
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: #fff;
+        font-size: 20px;
+    }
+
+
+</style>
+</head>
+<body>
+<div ng-app="databyte" ng-controller="db_control_main">
+    <md-content class="md-padding">
+   <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+    <!--<md-nav-item md-nav-href="/#!/" name="page0" width="50px">
+        <div>
+            <img ng-src="db.jpg" flex="10"/>
+        </div>
+    </md-nav-item>-->
+     <md-nav-item md-nav-href="/#!/" name="page1">
+         Home
+     </md-nav-item>
+     <md-nav-item md-nav-href="/#!/projects" name="page2">
+       Projects
+     </md-nav-item>
+     <md-nav-item md-nav-href="/#!/members" name="page3">
+        <md-menu>
+            <div ng-mouseenter="$mdMenu.open()"> Members</div>
+            <md-menu-content ng-mouseleave="$mdMenu.close()">
+                <md-menu-item>
+                    <md-nav-item md-nav-href="/#!/members/ds" name="page3">
+                        Data Science
+                    </md-nav-item>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-nav-item md-nav-href="/#!/members/ba" name="page3">
+                        Business Analytics
+                    </md-nav-item>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+   </md-nav-item>
+   </md-nav-bar>
+   </md-content>
+    <div ng-repeat="i in var1">{{i}}</div>
+    <div ng-view></div>
+</div>
+</body>
+</html>
